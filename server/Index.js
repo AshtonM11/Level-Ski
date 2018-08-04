@@ -8,10 +8,10 @@ const strategy = require(`${__dirname}/strategy.js`);
 
 const passport = require("passport");
 
-const controller = require("./controller");
+// const controller = require("./controller");
 const cors = require("cors");
 
-const app = express();
+const app = (module.exports = express());
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -28,6 +28,7 @@ app.use(
     saveUninitialized: true
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(strategy);
@@ -36,45 +37,39 @@ passport.serializeUser(function(user, done) {
   console.log("this is user", user);
   done(null, {
     id: user.id,
-    name: user.name,
+    display: user.displayName,
+    nickname: user.nickname,
     picture: user.picture
-
-    // put on any additional stuff you want to save
   });
 });
 
-passport.deserializeUser(function(user, done) {
-  app
-    .get("db")
-    .find_session_user([user.id])
-    .then(user => {
-      return done(null, user[0]);
-    });
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
 });
 
-// app.get(
-//   "/login",
-//   passport.authenticate("auth0", {
-//     successRedirect: "/me",
-//     failureRedirect: "/login",
-//     failureFlash: true
-//   })
-// );
+//Auth0 login...?
+app.get(
+  "/login",
+  passport.authenticate("auth0", {
+    successRedirect: "/me",
+    failureRedirect: "/login",
+    failureFlash: true
+  })
+);
+
+app.get("/api/user", (req, res) => {
+  console.log("req.session", req.session);
+  res.send(req.session.user);
+});
 
 app.get("/me", (req, res, next) => {
+  req.session.user = req.user;
   if (!req.user) {
     res.redirect("/login");
   } else {
-    //req.user === req.session.passport.user
-    //console.log(req.user)
-    //console.log (req.session.passport.user)
-    res.status(200).send(JSON.stringify(req.user, null, 10));
+    res.redirect("http://localhost:3000");
+    // res.status(200).send(JSON.stringify(req.user, null, 10));
   }
-});
-
-app.get("/auth/logout", (req, res) => {
-  req.logOut();
-  return res.redirect(`${process.env.FRONTEND_URL}#/`);
 });
 
 const port = process.env.PORT || 3005;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { HashRouter, Route } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Private from "./components/Private/Private";
+import Login from "./compnents/Login/Login";
+import route from "./route";
 
 class App extends Component {
   constructor(props) {
@@ -10,14 +10,7 @@ class App extends Component {
     this.state = {};
   }
   render() {
-    return (
-      <HashRouter>
-        <div>
-          <Route component={Login} path="/" exact />
-          <Route component={Private} path="/private" />
-        </div>
-      </HashRouter>
-    );
+    return <div>{route} </div>;
   }
 }
 
