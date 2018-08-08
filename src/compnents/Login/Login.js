@@ -17,6 +17,8 @@ export default class Login extends Component {
             <img className="logo-img" src={img} />
           </div>
           <div id="nav-items">
+            <div>Instructors</div>
+            <div>Rentals?</div>
             <div>About</div>
             <div>Contact</div>
           </div>
