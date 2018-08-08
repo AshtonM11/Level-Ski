@@ -47,7 +47,7 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-//Auth0 login...?
+//Auth0 login
 app.get(
   "/login",
   passport.authenticate("auth0", {
