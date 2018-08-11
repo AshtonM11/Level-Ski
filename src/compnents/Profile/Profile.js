@@ -3,7 +3,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Loader } from "mx-react-components";
-import img from "../../Images/new-color-logo.png";
+import Nav from "../nav/Nav";
 import {
   updateStudentName,
   updateAge,
@@ -36,15 +36,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <nav>
-          <div>{<img className="logo-img" src={img} />}</div>
-          <div id="nav-items">
-            <div>Instructors</div>
-            <div>Rentals?</div>
-            <div>About</div>
-            <div>Contact</div>
-          </div>
-        </nav>
+        <Nav />
         {this.state.loading ? (
           <Loader isLoading={this.state.loading} isRelative={true}>
             Loading...

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Form.css";
 import img from "../../Images/new-color-logo.png";
 import { connect } from "react-redux";
+import Nav from "../nav/Nav";
 import {
   updateStudentName,
   updateAge,
@@ -18,37 +19,68 @@ class Form extends Component {
 
   render() {
     return (
-      <div className="nav">
-        <nav>
-          <div>
-            <img className="logo-img" src={img} />
-          </div>
-          <div id="nav-items">
-            <div>Instructors</div>
-            <div>Rentals?</div>
-            <div>Book A Lesson</div>
-            <div>Contact</div>
-          </div>
-        </nav>
+      <div>
+        <Nav> </Nav>
+        <div className="user">
+          <header className="user__header">
+            <img
+              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3219/logo.svg"
+              alt=""
+            />
+            <h1 className="user__title">Tell us about yourself</h1>
+          </header>
 
-        <div className="info-container">
-          <h2>Name</h2>
-          <input
-            value={this.props.student_name}
-            onChange={e => this.props.updateStudentName(e.target.value)}
-          />
-          <h2> Age </h2>
-          <input onChange={e => this.props.updateAge(e.target.value)} />
-          <h2>Your Skill Level</h2>
-          <input onChange={e => this.props.updateSkillLevel(e.target.value)} />
-          <h2>What do you want to learn?</h2>
-          <input
-            onChange={e => this.props.updateDesiredSkill(e.target.value)}
-          />
-          <h2> Preferred Resorts </h2>
-          <input onChange={e => this.props.updateResorts(e.target.value)} />
+          <form className="form">
+            <div className="form__group">
+              <input
+                value={this.props.student_name}
+                onChange={e => this.props.updateStudentName(e.target.value)}
+                type="text"
+                placeholder="Full Name"
+                className="form__input"
+              />
+            </div>
 
-          <img src={this.props.image_url} />
+            <div className="form__group">
+              <input
+                onChange={e => this.props.updateAge(e.target.value)}
+                type="number"
+                placeholder="Age"
+                className="form__input"
+              />
+            </div>
+
+            <div className="form__group">
+              <input
+                onChange={e => this.props.updateSkillLevel(e.target.value)}
+                type="text"
+                placeholder="Your skill level"
+                className="form__input"
+              />
+            </div>
+
+            <div className="form__group">
+              <input
+                onChange={e => this.props.updateDesiredSkill(e.target.value)}
+                type="text"
+                placeholder="What do you want to learn?"
+                className="form__input"
+              />
+            </div>
+
+            <div className="form__group">
+              <input
+                onChange={e => this.props.updateResorts(e.target.value)}
+                type="text"
+                placeholder="What resorts do you prefer?"
+                className="form__input"
+              />
+            </div>
+
+            <button className="btn" type="button">
+              Update Profile
+            </button>
+          </form>
         </div>
       </div>
     );
